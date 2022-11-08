@@ -2,8 +2,34 @@
 <html>
     <head>
         <title>ScrollyTelling Project</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" />
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+
+        <script src="js/main.js"></script>
+        
     </head>
     <body>
-        hola
+        <!-- <div class="container">
+                <img 
+                id="map"
+                src="https://maps.googleapis.com/maps/api/staticmap?center=40.714%2c%20-73.998&zoom=3&size=640x300&scale=2&maptype=satellite&key=AIzaSyBSz6Mcm4YtjWHA31-RwaShbONjnbJ5VX8" 
+                >
+        </div> -->
+        <div class="container">
+            <div id='leaflet-map' style='width:1280px; height:720px;'></div>
+            <svg id="map_svg" width="600px" height="600px">
+                <!-- <rect x="28" width="200" height="200"/>
+                <rect x="75" y="23" width="50" height="50" style="fill:red"/>
+                <rect x="75" y="123" width="50" height="50" style="fill:#0013ff"/> -->
+            </svg>
+        </div>
+
     </body>
 </html>
