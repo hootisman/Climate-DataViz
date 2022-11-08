@@ -1,1 +1,1 @@
-hello
+I decided not to include my work in progress in the main index.html as it is cluttered at the minute, and I didn't want the amount of new lines I added to simulate scrolling down the page to affect the rest of the work. 
