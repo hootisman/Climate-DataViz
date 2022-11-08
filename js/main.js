@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function hurricaneMain(){
-    d3.csv("hurricaneidatest.csv").then(data =>{
+    d3.csv("data/hurricaneidatest.csv").then(data =>{
         data.shift();   //remove first element of array
 
         data.forEach((d) =>{
