@@ -13,7 +13,30 @@
    crossorigin=""></script>
 
         <script src="js/main.js"></script>
-        
+
+        <style>
+            .myContainer {
+                margin:auto;
+                width:1300px;
+                height: 800px;
+            }
+            #line_div {
+                border-right: 1px solid;
+                border-top: 1px solid;
+                border-bottom: 1px solid;
+                border-left: 1px solid;
+                width:1300px;
+                height: 740px;
+                padding:10px;
+            }
+            #line_svg {
+                width: 1280px;
+                height: 720px;
+                background-color: white;
+                border: 1px solid lightgray;
+                border-radius: 3px;
+            }
+        </style>
     </head>
     <body>
         <!-- <div class="container">
@@ -23,13 +46,141 @@
                 >
         </div> -->
         <div class="container">
+            <h1 class="text-center">Testing Area</h1>
+            <h3 class="text-center">Wildfire Visualization</h3>
+            <hr>
+            <div id="line_div" class="border-dark bg-light shadow-sm">
+                <span id="character-name"></span>
+                <svg id="line_svg"></svg>
+            </div>
+            <div id = 'vis'></div>
+            <h3 class="text-center">Innovative Visualization</h3>
             <div id='leaflet-map' style='width:1280px; height:720px;'></div>
-            <svg id="map_svg" width="600px" height="600px">
-                <!-- <rect x="28" width="200" height="200"/>
-                <rect x="75" y="23" width="50" height="50" style="fill:red"/>
-                <rect x="75" y="123" width="50" height="50" style="fill:#0013ff"/> -->
-            </svg>
+            <svg id="map_svg" width="600px" height="600px"></svg>
         </div>
+        
+        <script>
 
+            // original code from https://bl.ocks.org/officeofjane/a70f4b44013d06b9c0a973f163d8ab7a
+            // this is an edited "proof of concept" to see how clustering works
+            function bubbleChart() {
+              const width = 940;
+              const height = 500;
+            
+              centres = [{x: 200, y: 250}, {x: 450, y: 250}, {x: 700, y: 250}];
+            
+              // location to centre the bubbles
+              const centre = { x: width/2, y: height/2 };
+            
+              // strength to apply to the position forces
+              const forceStrength = 0.03;
+            
+              // these will be set in createNodes and chart functions
+              let svg = null;
+              let bubbles = null;
+              let labels = null;
+              let nodes = [];
+              
+              // create a force simulation and add forces to it
+              const simulation = d3.forceSimulation()
+                .force('charge', d3.forceManyBody().strength(0.000001))
+                .force('x', d3.forceX().strength(forceStrength).x(centre.x))
+                .force('y', d3.forceY().strength(forceStrength).y(centre.y))
+                .force('collision', d3.forceCollide().radius(d => d.radius + 1));
+            
+              // set up colour scale
+              const fillColour = d3.scaleOrdinal()
+                  .domain(["1", "2", "3"])
+                  .range(["#FF0000", "#FFFF00", "#00FF00"]);
+            
+              // data manipulation function takes raw data from csv and converts it into an array of node objects
+              // each node will store data and visualisation values to draw a bubble
+              // rawData is expected to be an array of data objects, read in d3.csv
+              // function returns the new node array, with a node for each element in the rawData input
+              function createNodes(rawData) {
+                // use max size in the data as the max in the scale's domain
+                // note we have to ensure that size is a number
+                const maxSize = d3.max(rawData, d => +d.size);
+            
+                // use map() to convert raw data into node data
+                const myNodes = rawData.map(d => ({
+                  ...d,
+                  radius: +d.size/20,
+                  size: +d.size,
+                  x: Math.random() * 1280,
+                  y: Math.random() * 720
+                }))
+            
+                return myNodes;
+              }
+            
+              let chart = function chart(selector, rawData) {
+                nodes = createNodes(rawData);
+            
+                svg = d3.select(selector)
+                  .append('svg')
+                  .attr('width', width)
+                  .attr('height', height)
+            
+                const elements = svg.selectAll('.bubble')
+                  .data(nodes, d => d.id)
+                  .enter()
+                  .append('g')
+            
+                bubbles = elements
+                  .append('circle')
+                  .classed('bubble', true)
+                  .attr('r', d => d.radius)
+                  .attr('fill', d => fillColour(d.groupid))
+            
+                // labels
+                labels = elements
+                  .append('text')
+                  .attr('dy', '.3em')
+                  .style('text-anchor', 'middle')
+                  .style('font-size', 10)
+                  .text(d => d.id)
+            
+                simulation.nodes(nodes)
+                  .on('tick', ticked)
+                  .restart();
+              }
+            
+              // callback function called after every tick of the force simulation
+              // here we do the actual repositioning of the circles based on current x and y value of their bound node data
+              // x and y values are modified by the force simulation
+              function ticked() {
+                
+                nodes.forEach(function(b, i) {
+                    b.y += (centres[b.group].y - b.y) * 0.05;
+                    b.x += (centres[b.group].x - b.x) * 0.05;
+                });
+            
+                bubbles
+                  .attr('cx', d => d.x)
+                  .attr('cy', d => d.y)
+            
+                labels
+                  .attr('x', d => d.x)
+                  .attr('y', d => d.y)
+              }
+            
+              // return chart function from closure
+              return chart;
+            }
+            
+            // new bubble chart instance
+            let myBubbleChart = bubbleChart();
+            
+            // function called once promise is resolved and data is loaded from csv
+            // calls bubble chart function to display inside #vis div
+            function display(data) {
+              myBubbleChart('#vis', data);
+            }
+            
+            // load data
+            d3.csv('data/nodes-data.csv').then(display);
+            
+            </script>
     </body>
 </html>

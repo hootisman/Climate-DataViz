@@ -1,24 +1,58 @@
+// global variables
+const yScale = d3.scaleLinear();
+const xScale = d3.scaleLinear();
+let data;
+state_codes = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+               'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+               'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 
+               'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 
+               'SD', 'TN', 'TX', 'UT', 'VT',' VA', 'WA', 'WV', 'WI', 'WY']
+
+// This function is called once the HTML page is fully loaded by the browser
+document.addEventListener('DOMContentLoaded', function () {
+    
+});
+
 
 
 var hurricaneData;
 
 document.addEventListener('DOMContentLoaded', function () {
-    hurricaneMain();
-});
+    Promise.all([d3.csv('data/FireData.csv'),d3.csv("data/hurricaneidatest.csv")])
+    .then(function (values) {
+        //fire data
+        data_initial = values[0];
 
-function hurricaneMain(){
-    d3.csv("data/hurricaneidatest.csv").then(data =>{
-        data.shift();   //remove first element of array
+        data = data_initial.map(element => ({
+            Year: +element.Year,
+            Size: +element.Size,
+            State: element.State
+        }));
 
-        data.forEach((d) =>{
+        readyData = CalcYearData(2015);
+        console.log(readyData);
+        MathCalc(readyData);
+
+        DrawBasic()
+
+
+        //innovative visualization (hurricane path)
+        tempHurricaneData = values[1];
+        tempHurricaneData.shift();   //remove first element of array
+
+        tempHurricaneData.forEach((d) =>{
             d["LAT"] = +d["LAT"];
             d["LON"] = +d["LON"];
         });
         
-        hurricaneData = data;
+        hurricaneData = tempHurricaneData;
         hurricaneMapPlot();
+        
+
     });
-}
+
+});
+
 function hurricaneMapPlot(){
     var leafletMap = L.map('leaflet-map',{zoomControl: false,minZoom: 5, maxZoom: 5}).setView([33.448, -80.074], 5);
     
@@ -64,4 +98,72 @@ function hurricaneMapPlot(){
     //leafletMap.addEventListener("move",() => console.log(leafletMap.layerPointToLatLng([-10,0])));
     //leafletMap.addEventListener("move",() => console.log(leafletMap.latLngToLayerPoint([45.583289756006316,-108.63281250000001])));
 
+}
+
+function DrawBasic()
+{
+    
+}
+
+function GetYearData(year)
+{
+    data_filtered = data.filter(function (element) {
+        return element.Year == year;
+    });
+    return data_filtered;
+}
+
+// accepts country list with sum values and calculates relevant data
+function MathCalc(list)
+{
+    array = [];
+    list.forEach(element => {
+        array.push(element.Size)
+    });
+
+    // calc standard deviation
+    n = array.length
+    mean = array.reduce((a, b) => a + b) / n
+    stddev = Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n)
+    
+    sum = 0
+    list.forEach(element => {
+        sum += element.Size;
+    });
+    avg = sum/list.length;
+
+    console.log("Mean: " + avg + "\nStd Dev: " + stddev);
+    return [avg, stddev];
+}
+
+// accepts a list with state's current year fire data and returns a node
+function CalcYearData(year)
+{
+    list = GetYearData(year);
+    const calcData = {};
+    
+    list.forEach(element => {
+        if (calcData[element.State] == undefined)
+        {
+            calcData[element.State] = element.Size
+        }
+        else
+            calcData[element.State] = calcData[element.State] + element.Size
+    });
+
+    countryList = Object.keys(calcData);
+    newList = [];
+    for (i = 0; i < countryList.length; i++)
+    {
+        if (state_codes.includes(countryList[i]))
+        {
+            newList.push({
+                Year: year,
+                State: countryList[i],
+                Size: calcData[countryList[i]]
+            })
+        }
+    }
+    
+    return newList;
 }
