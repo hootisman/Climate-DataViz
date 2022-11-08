@@ -36,6 +36,19 @@
                 border: 1px solid lightgray;
                 border-radius: 3px;
             }
+            /* div.scroll {
+                border: solid 1px black;
+                position: fixed;
+                left: 20%;
+                top: 20%;
+                /* z-index: 100; */
+
+                height: 200px;
+                /* margin-top: -200px; */
+
+                width: 200px;
+                /* margin-left: -300px; */
+            } */
         </style>
     </head>
     <body>
@@ -57,8 +70,10 @@
             <h3 class="text-center">Innovative Visualization</h3>
             <div id='leaflet-map' style='width:1280px; height:720px;'></div>
             <svg id="map_svg" width="600px" height="600px"></svg>
+            <h3 class="text-center">Pie Chart</h3>
+            <div class="scroll" id="scroll"></div>
         </div>
-        
+
         <script>
 
             // original code from https://bl.ocks.org/officeofjane/a70f4b44013d06b9c0a973f163d8ab7a
@@ -182,5 +197,100 @@
             d3.csv('data/nodes-data.csv').then(display);
             
             </script>
+
+            <!-- PIE CHART CODE BELOW -->
+            <!-- <script>
+
+                //pie chart script
+                let aa = 0;
+                const width = 200,
+                height = 200,
+                margin = 0;
+        
+        
+        
+        
+        
+                let datal = [[9,2,3,8,1],
+                            [1,9,6,3,2],
+                            [8,1,1,6,9],
+                            [9,2,6,3,7],
+                            [1,2,8,1,12],
+                            [5,13,3,7,1],
+                            [9,2,13,1,3],]
+                let data = datal[aa]
+                let total = 0; 
+                for (let i = 0; i < data.length; i++){
+                    total = total + data[i];
+                }
+                console.log("total = " + total);
+                var radius = total/2;
+                // var svg = d3.select("#scroll")
+                //     .append("svg")
+                //         .attr("width", width)
+                //         .attr("height", height)
+                //     .append("g")
+                //         .attr("transform", `translate(${width/2}, ${height/2})`);
+        
+                const color = d3.scaleOrdinal()
+                    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"])
+        
+                var pie = d3.pie()
+                    .value(function(d) {return d[1]})
+                var data_ready = pie(Object.entries(data))
+        
+                // svg
+                //     .selectAll('whatever')
+                //     .data(data_ready)
+                //     .join('path')
+                //     .attr('d', d3.arc()
+                //         .innerRadius(0)
+                //         .outerRadius(radius)
+                //     )
+                //     .attr('fill', function(d){ return(color(d.data[1])) })
+                //     .attr("stroke", "black")
+                //     .style("stroke-width", "2px")
+                //     .style("opacity", 0.7)
+        
+        
+                console.log(data)
+        
+                d3.select("#scroll").append("svg").append("circle").attr("cx", 100).attr("cy", 100).attr("r", total*1.7).style("fill", "blue");
+                //}
+                    window.onscroll = function change(){
+                    if (aa != Math.floor(window.scrollY/279)){
+                        aa = Math.floor(window.scrollY/279)
+                        console.log("We drawing today boiiis")
+                        console.log("aa = " + aa)
+        
+                    }
+                    else {
+                        console.log(2)
+                        return
+                    }
+        
+                    total = 0;
+                    for (let i = 0; i < data.length; i++){
+                        total = total + datal[aa][i];
+                    }
+                    console.log("total = " + total);
+        
+        
+                    d3.select("circle")
+                        .attr("r", total*1.7)
+                    // d3.selectAll("whatever")
+                    //     .attr('d', d3.arc()
+                    //         .innerRadius(0)
+                    //         .outerRadius(total/2))
+        
+        
+        
+                }
+                // function getTransition() {
+                //     return transition()
+                //         .duration(1000)
+                //         .ease(easeLinear)
+                // }
+            </script> -->
     </body>
 </html>
