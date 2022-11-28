@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" />
         <script src="https://d3js.org/d3.v7.min.js"></script>
 
+        <!-- leaflet css and js -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
    crossorigin=""/>
@@ -41,35 +42,47 @@
                 position: fixed;
                 left: 20%;
                 top: 20%;
-                /* z-index: 100; */
+                // z-index: 100; 
 
                 height: 200px;
-                /* margin-top: -200px; */
+                // margin-top: -200px; 
 
                 width: 200px;
-                /* margin-left: -300px; */
+                // margin-left: -300px; 
             } */
         </style>
     </head>
     <body>
-        <!-- <div class="container">
-                <img 
-                id="map"
-                src="https://maps.googleapis.com/maps/api/staticmap?center=40.714%2c%20-73.998&zoom=3&size=640x300&scale=2&maptype=satellite&key=AIzaSyBSz6Mcm4YtjWHA31-RwaShbONjnbJ5VX8" 
-                >
-        </div> -->
         <div class="container">
             <h1 class="text-center">Testing Area</h1>
             <h3 class="text-center">Wildfire Visualization</h3>
             <hr>
+            <div id = "sections">
+
+            </div>
             <div id="line_div" class="border-dark bg-light shadow-sm">
                 <span id="character-name"></span>
                 <svg id="line_svg"></svg>
             </div>
             <div id = 'vis'></div>
-            <h3 class="text-center">Innovative Visualization</h3>
-            <div id='leaflet-map' style='width:1280px; height:720px;'></div>
-            <svg id="map_svg" width="600px" height="600px"></svg>
+            
+            <!-- <div class="row">
+              <div class="col">
+                <button type="button" onclick="tempbutton('prev')">previous</button>
+              </div>
+              <div class="col">
+                <button type="button" onclick="tempbutton('next')">next</button>
+              </div>
+            </div> -->
+            <div>
+              <h3 class="text-center">Innovative Visualization</h3>
+              <button type="button" onclick="tempbutton('prev')">previous</button>
+              <button type="button" onclick="tempbutton('next')">next</button>
+              <div id='leaflet-map' style='width:1280px; height:720px;'></div>
+              <div id ="hurri-path-div"></div>
+            </div>
+            
+            <!-- <svg id="map_svg" width="600px" height="600px"></svg> -->
             <h3 class="text-center">Pie Chart</h3>
             <div class="scroll" id="scroll"></div>
         </div>
