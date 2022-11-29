@@ -21,7 +21,7 @@ Hurricane Dataset:
 https://ibtracs.unca.edu/index.php?name=v04r00-2021239N17281#all
 Tornado Dataset:
 https://www.spc.noaa.gov/wcm/#jmc => 1950-2021_actual_tornadoes.csv (7.2 mb)
-    Data Processing: For the wildfire visualization, the data was originally in a sqlite file. The file was opened up using SQLite DB Browser. Using SQL commands, a new table was made and all the relevant information( Year, State, Fire Fize) was placed into that table. The table was then extracted into a CSV file for use in the project.
+     Data Processing: For the wildfire visualization, the data was originally in a sqlite file. The file was opened up using SQLite DB Browser. Using SQL commands, a new table was made and all the relevant information( Year, State, Fire Fize) was placed into that table. The table was then extracted into a CSV file for use in the project.
 Specific columns were taken from the tornado data and converted into a csv file, which was then further refined into an easy to manage csv with five year periods added up for each state, which was finally transformed into a json file, as json is more friendly to hierarchy in d3, which the treemap uses. 
 For the innovative visualization, the data was on Hurricane IDA from the IBTrACS website. The data was pulled from the website and converted into a CSV file manually.
 For each of these datasets, the data was massive, with many redundant columns of data that were unneeded. In this case, the data was reformatted into only the data that we needed for each visualization.  
