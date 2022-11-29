@@ -8,15 +8,13 @@ body {
     justify-content: center;
     align-items: center;
 }
-svg{
+#canvas{
+    min-height: 600px;
+    min-width: 1000px;
     background-color: #1D1F20;
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
     padding: 10px;
     border-radius: 5px;
-}
-#canvas{
-    min-height: 600px;
-    min-width: 1000px;
 }
 .tile:hover{
     fill: Gainsboro
@@ -30,6 +28,10 @@ svg{
     max-width: 160px;
     margin-top: 15px;
     margin-bottom: 15px;
+    background-color: #1D1F20;
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    padding: 10px;
+    border-radius: 5px;
 }
 #tooltip{
     visibility: hidden;
@@ -67,4 +69,22 @@ svg{
     align-items: center;
     margin-left: 50px;
     width: 200px;
+}
+
+main.container-fluid {
+  width: 1140px;
+}
+
+text {
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.y-axis .domain {
+  display: none;
+}
+
+.x-axis-title,
+.y-axis-title {
+  font-weight: 700;
 }

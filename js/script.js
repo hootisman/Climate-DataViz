@@ -134,7 +134,7 @@ function change(year, data){ // change what year of data we look at
     return d
 }
 function draw(){
-    d3.json('torn3.json').then(
+    d3.json('data/torn3.json').then(
         (data, error) => {
             if(error){
                 console.log(error)

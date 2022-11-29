@@ -27,7 +27,6 @@ var leafletMap;
 
 
 const datasets = [
-            d3.csv('data/FireData.csv'),
             d3.csv("data/hurricanealma1970.csv"),
             d3.csv("data/hurricanedanny1985.csv"),
             d3.csv("data/hurricaneearl1998.csv"),
@@ -39,30 +38,12 @@ const datasets = [
 document.addEventListener('DOMContentLoaded', function () {
     Promise.all(datasets)
     .then(function (values) {
-        //fire data
-        data_initial = values[0];
-
-        data = data_initial.map(element => ({
-            Year: +element.Year,
-            Size: +element.Size,
-            State: element.State
-        }));
-
-        readyData = CalcYearData(2015);
-        console.log(readyData);
-        MathCalc(readyData);
-
-        DrawBasic()
-
-
-
-
         //innovative visualization (hurricane path)
 
         hurricaneDatas = Array(6);
 
         for(var i = 0; i < 6; i++){
-            tempHurricaneData = values[i+1];        // **** make sure d3.csv load order is correct!!!!! *****
+            tempHurricaneData = values[i];        // **** make sure d3.csv load order is correct!!!!! *****
 
             var prevWind = +tempHurricaneData[0]["WMO WIND"];
             tempHurricaneData.forEach((d) =>{
@@ -91,6 +72,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
+function runScroll(){
+
+    
+}
 function tempbutton(option){
     console.log(option);
     var incremval;
@@ -116,8 +101,9 @@ function hurricaneMapPlot(){
 
     d3.select("#hurri-path-svg").remove();
 
-    var svg = d3.select("#hurri-path-div").append("svg")
-                                            .attr("id","hurri-path-svg");
+    var svg = d3.select("#leaflet-map").append("svg")
+                                            .attr("id","hurri-path-svg")
+                                            .attr("class","graph");
 
     var svgBounds = L.latLngBounds(
         L.latLng(90,180),
@@ -180,109 +166,12 @@ function hurricaneMapPlot(){
         .ease(d3.easeQuad)
         .attr("stroke-dashoffset", 0);
 
-            
-
-    // var hurriIcon = g.append("g")
-    //                     .attr("id","hurrig")
-    //                     .append("circle")
-    //                                 .attr("cx", leafletMap.project([28.5,-89.6])["x"])
-    //                                 .attr("cy", leafletMap.project([28.5,-89.6])["y"])
-    //                                 .attr('r', 20)
-    //                                 .style("fill","red");
-
-
-    
-
-    // d3.select("#hurrig").transition()
-    //             .duration(10000)
-    //             .attr("x", 100)
-
-
-
     var svgOverlay = L.svgOverlay(document.querySelector("#hurri-path-svg"), svgBounds, {
         opacity: 0.9,
         interactive: true
     }).addTo(leafletMap);
 
-
-
-
-
-
-
-
     //leafletMap.addEventListener("move",() => console.log(leafletMap.project([23.5,-87.6],5)));
     //leafletMap.addEventListener("move",() => console.log(leafletMap.latLngToLayerPoint([29.1,-90.2])));
 
-}
-
-// Fire data & clustering
-// Nick
-
-function DrawBasic()
-{
-    
-}
-
-function GetYearData(year)
-{
-    data_filtered = data.filter(function (element) {
-        return element.Year == year;
-    });
-    return data_filtered;
-}
-
-// accepts country list with sum values and calculates relevant data
-function MathCalc(list)
-{
-    array = [];
-    list.forEach(element => {
-        array.push(element.Size)
-    });
-
-    // calc standard deviation
-    n = array.length
-    mean = array.reduce((a, b) => a + b) / n
-    stddev = Math.sqrt(array.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b) / n)
-    
-    sum = 0
-    list.forEach(element => {
-        sum += element.Size;
-    });
-    avg = sum/list.length;
-
-    console.log("Mean: " + avg + "\nStd Dev: " + stddev);
-    return [avg, stddev];
-}
-
-// accepts a list with state's current year fire data and returns a node
-function CalcYearData(year)
-{
-    list = GetYearData(year);
-    const calcData = {};
-    
-    list.forEach(element => {
-        if (calcData[element.State] == undefined)
-        {
-            calcData[element.State] = element.Size
-        }
-        else
-            calcData[element.State] = calcData[element.State] + element.Size
-    });
-
-    countryList = Object.keys(calcData);
-    newList = [];
-    for (i = 0; i < countryList.length; i++)
-    {
-        if (state_codes.includes(countryList[i]))
-        {
-            newList.push({
-                Year: year,
-                State: countryList[i],
-                Size: calcData[countryList[i]]
-            })
-        }
-    }
-    
-    return newList;
 }

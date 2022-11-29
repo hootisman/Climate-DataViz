@@ -4,6 +4,10 @@
         <title>ScrollyTelling Project</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" />
         <script src="https://d3js.org/d3.v7.min.js"></script>
+        <link rel="stylesheet" href="./style.css">
+
+        <script src="js/graph-scroll.js"></script>
+        
 
         <!-- leaflet css and js -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -13,7 +17,9 @@
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
 
-        <script src="js/main.js"></script>
+        <script src="js/hurricane.js"></script>
+        <script src="js/chris.js"></script>
+        <script src="js/nick.js"></script>
 
         <style>
             .myContainer {
@@ -26,284 +32,153 @@
                 border-top: 1px solid;
                 border-bottom: 1px solid;
                 border-left: 1px solid;
-                width:1300px;
+                width:1000px;
+                height: 740px;
+                padding:10px;
+            }
+            #hurri-path-div {
+                border-right: 1px solid;
+                border-top: 1px solid;
+                border-bottom: 1px solid;
+                border-left: 1px solid;
+                width:1000px;
                 height: 740px;
                 padding:10px;
             }
             #line_svg {
-                width: 1280px;
+                width: 100%;
                 height: 720px;
                 background-color: white;
                 border: 1px solid lightgray;
                 border-radius: 3px;
             }
-            /* div.scroll {
-                border: solid 1px black;
-                position: fixed;
-                left: 20%;
-                top: 20%;
-                // z-index: 100; 
-
-                height: 200px;
-                // margin-top: -200px; 
-
-                width: 200px;
-                // margin-left: -300px; 
-            } */
+            
+            
         </style>
     </head>
     <body>
         <div class="container">
-            <h1 class="text-center">Testing Area</h1>
-            <h3 class="text-center">Wildfire Visualization</h3>
-            <hr>
-            <div id = "sections">
-
-            </div>
-            <div id="line_div" class="border-dark bg-light shadow-sm">
+          <!-- <div class="row">
+            <div class="col">
+              <div id="line_div" class="border-dark bg-light shadow-sm">
                 <span id="character-name"></span>
                 <svg id="line_svg"></svg>
+              </div>
             </div>
-            <div id = 'vis'></div>
-            
-            <!-- <div class="row">
-              <div class="col">
-                <button type="button" onclick="tempbutton('prev')">previous</button>
+            <div class="col">
+              <div id="sections">
+                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dui id ornare arcu odio ut sem. Iaculis nunc sed augue lacus viverra. Pellentesque nec nam aliquam sem et tortor consequat id. Nulla at volutpat diam ut venenatis tellus in metus. Nunc non blandit massa enim nec dui nunc. Amet porttitor eget dolor morbi non arcu risus. Habitant morbi tristique senectus et netus et malesuada fames. Arcu ac tortor dignissim convallis. Quisque sagittis purus sit amet volutpat consequat mauris nunc congue. Tincidunt ornare massa eget egestas purus. Aliquam malesuada bibendum arcu vitae elementum curabitur.</div>
+                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dui id ornare arcu odio ut sem. Iaculis nunc sed augue lacus viverra. Pellentesque nec nam aliquam sem et tortor consequat id. Nulla at volutpat diam ut venenatis tellus in metus. Nunc non blandit massa enim nec dui nunc. Amet porttitor eget dolor morbi non arcu risus. Habitant morbi tristique senectus et netus et malesuada fames. Arcu ac tortor dignissim convallis. Quisque sagittis purus sit amet volutpat consequat mauris nunc congue. Tincidunt ornare massa eget egestas purus. Aliquam malesuada bibendum arcu vitae elementum curabitur.</div>
+                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dui id ornare arcu odio ut sem. Iaculis nunc sed augue lacus viverra. Pellentesque nec nam aliquam sem et tortor consequat id. Nulla at volutpat diam ut venenatis tellus in metus. Nunc non blandit massa enim nec dui nunc. Amet porttitor eget dolor morbi non arcu risus. Habitant morbi tristique senectus et netus et malesuada fames. Arcu ac tortor dignissim convallis. Quisque sagittis purus sit amet volutpat consequat mauris nunc congue. Tincidunt ornare massa eget egestas purus. Aliquam malesuada bibendum arcu vitae elementum curabitur.</div>
               </div>
-              <div class="col">
-                <button type="button" onclick="tempbutton('next')">next</button>
+            </div>
+          </div> -->
+
+
+          <main class="container-fluid py-5">
+            <div class="text-center mb-4">
+              <h1 class="text-center"></h1>
+              <!-- <p>Christopher Stone</p> -->
+            </div>
+      
+            <div class="card shadow mb-4">
+              <div class="card-body">
+                <h5 class="card-title">US Temperature Change</h5>
+                <div class="mb-2">
+                  <div id="usTemperatureChange"></div>
+                </div>
+                <p class="text-muted mb-0"></p>
+                  Data source:
+                  <a
+                    href="https://www.kaggle.com/code/sevgisarac/climate-change/data"
+                    target="_blank"
+                    class="text-muted"
+                    >Climate Change</a
+                  >
+                </p>
               </div>
-            </div> -->
-            <div>
-              <h3 class="text-center">Innovative Visualization</h3>
+            </div>
+            <div class="card shadow mb-4">
+              <div class="card-body">
+                <h5 class="card-title">US Natural Disasters Deaths</h5>
+                <div class="mb-2">
+                  <div id="usNaturalDisasterDeaths"></div>
+                </div>
+                <p class="text-muted mb-0">
+                  Data source:
+                  <a
+                    href="https://www.kaggle.com/datasets/brsdincer/all-natural-disasters-19002021-eosdis"
+                    target="_blank"
+                    class="text-muted"
+                    >ALL NATURAL DISASTERS 1900-2021 / EOSDIS</a
+                  >
+                </p>
+              </div>
+            </div>
+            <div class="card shadow mb-4">
+              <div class="card-body">
+                <h5 class="card-title">US Natural Disasters Damages</h5>
+                <div class="mb-2">
+                  <div id="usNaturalDisasterDamages"></div>
+                </div>
+                <p class="text-muted mb-0">
+                  Data source:
+                  <a
+                    href="https://www.kaggle.com/datasets/brsdincer/all-natural-disasters-19002021-eosdis"
+                    target="_blank"
+                    class="text-muted"
+                    >ALL NATURAL DISASTERS 1900-2021 / EOSDIS</a
+                  >
+                </p>
+              </div>
+            </div>
+          </main>
+
+          <div class="row">
+            <div class="col">
               <button type="button" onclick="tempbutton('prev')">previous</button>
               <button type="button" onclick="tempbutton('next')">next</button>
-              <div id='leaflet-map' style='width:1280px; height:720px;'></div>
-              <div id ="hurri-path-div"></div>
-            </div>
-            
-            <!-- <svg id="map_svg" width="600px" height="600px"></svg> -->
-            <h3 class="text-center">Pie Chart</h3>
-            <div class="scroll" id="scroll"></div>
-        </div>
-
-        <script>
-
-            // original code from https://bl.ocks.org/officeofjane/a70f4b44013d06b9c0a973f163d8ab7a
-            // this is an edited "proof of concept" to see how clustering works
-            function bubbleChart() {
-              const width = 940;
-              const height = 500;
-            
-              centres = [{x: 200, y: 250}, {x: 450, y: 250}, {x: 700, y: 250}];
-            
-              // location to centre the bubbles
-              const centre = { x: width/2, y: height/2 };
-            
-              // strength to apply to the position forces
-              const forceStrength = 0.03;
-            
-              // these will be set in createNodes and chart functions
-              let svg = null;
-              let bubbles = null;
-              let labels = null;
-              let nodes = [];
               
-              // create a force simulation and add forces to it
-              const simulation = d3.forceSimulation()
-                .force('charge', d3.forceManyBody().strength(0.000001))
-                .force('x', d3.forceX().strength(forceStrength).x(centre.x))
-                .force('y', d3.forceY().strength(forceStrength).y(centre.y))
-                .force('collision', d3.forceCollide().radius(d => d.radius + 1));
+              <div id='leaflet-map' style='width:100%; height:720px;'></div>
+              
+            </div>
+            <div class="col">
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dui id ornare arcu odio ut sem. Iaculis nunc sed augue lacus viverra. Pellentesque nec nam aliquam sem et tortor consequat id. Nulla at volutpat diam ut venenatis tellus in metus. Nunc non blandit massa enim nec dui nunc. Amet porttitor eget dolor morbi non arcu risus. Habitant morbi tristique senectus et netus et malesuada fames. Arcu ac tortor dignissim convallis. Quisque sagittis purus sit amet volutpat consequat mauris nunc congue. Tincidunt ornare massa eget egestas purus. Aliquam malesuada bibendum arcu vitae elementum curabitur.</div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dui id ornare arcu odio ut sem. Iaculis nunc sed augue lacus viverra. Pellentesque nec nam aliquam sem et tortor consequat id. Nulla at volutpat diam ut venenatis tellus in metus. Nunc non blandit massa enim nec dui nunc. Amet porttitor eget dolor morbi non arcu risus. Habitant morbi tristique senectus et netus et malesuada fames. Arcu ac tortor dignissim convallis. Quisque sagittis purus sit amet volutpat consequat mauris nunc congue. Tincidunt ornare massa eget egestas purus. Aliquam malesuada bibendum arcu vitae elementum curabitur.</div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dui id ornare arcu odio ut sem. Iaculis nunc sed augue lacus viverra. Pellentesque nec nam aliquam sem et tortor consequat id. Nulla at volutpat diam ut venenatis tellus in metus. Nunc non blandit massa enim nec dui nunc. Amet porttitor eget dolor morbi non arcu risus. Habitant morbi tristique senectus et netus et malesuada fames. Arcu ac tortor dignissim convallis. Quisque sagittis purus sit amet volutpat consequat mauris nunc congue. Tincidunt ornare massa eget egestas purus. Aliquam malesuada bibendum arcu vitae elementum curabitur.</div>    
+            </div>
+          </div>
+        </div>
             
-              // set up colour scale
-              const fillColour = d3.scaleOrdinal()
-                  .domain(["1", "2", "3"])
-                  .range(["#FF0000", "#FFFF00", "#00FF00"]);
-            
-              // data manipulation function takes raw data from csv and converts it into an array of node objects
-              // each node will store data and visualisation values to draw a bubble
-              // rawData is expected to be an array of data objects, read in d3.csv
-              // function returns the new node array, with a node for each element in the rawData input
-              function createNodes(rawData) {
-                // use max size in the data as the max in the scale's domain
-                // note we have to ensure that size is a number
-                const maxSize = d3.max(rawData, d => +d.size);
-            
-                // use map() to convert raw data into node data
-                const myNodes = rawData.map(d => ({
-                  ...d,
-                  radius: +d.size/20,
-                  size: +d.size,
-                  x: Math.random() * 1280,
-                  y: Math.random() * 720
-                }))
-            
-                return myNodes;
-              }
-            
-              let chart = function chart(selector, rawData) {
-                nodes = createNodes(rawData);
-            
-                svg = d3.select(selector)
-                  .append('svg')
-                  .attr('width', width)
-                  .attr('height', height)
-            
-                const elements = svg.selectAll('.bubble')
-                  .data(nodes, d => d.id)
-                  .enter()
-                  .append('g')
-            
-                bubbles = elements
-                  .append('circle')
-                  .classed('bubble', true)
-                  .attr('r', d => d.radius)
-                  .attr('fill', d => fillColour(d.groupid))
-            
-                // labels
-                labels = elements
-                  .append('text')
-                  .attr('dy', '.3em')
-                  .style('text-anchor', 'middle')
-                  .style('font-size', 10)
-                  .text(d => d.id)
-            
-                simulation.nodes(nodes)
-                  .on('tick', ticked)
-                  .restart();
-              }
-            
-              // callback function called after every tick of the force simulation
-              // here we do the actual repositioning of the circles based on current x and y value of their bound node data
-              // x and y values are modified by the force simulation
-              function ticked() {
-                
-                nodes.forEach(function(b, i) {
-                    b.y += (centres[b.group].y - b.y) * 0.05;
-                    b.x += (centres[b.group].x - b.x) * 0.05;
-                });
-            
-                bubbles
-                  .attr('cx', d => d.x)
-                  .attr('cy', d => d.y)
-            
-                labels
-                  .attr('x', d => d.x)
-                  .attr('y', d => d.y)
-              }
-            
-              // return chart function from closure
-              return chart;
-            }
-            
-            // new bubble chart instance
-            let myBubbleChart = bubbleChart();
-            
-            // function called once promise is resolved and data is loaded from csv
-            // calls bubble chart function to display inside #vis div
-            function display(data) {
-              myBubbleChart('#vis', data);
-            }
-            
-            // load data
-            d3.csv('data/nodes-data.csv').then(display);
-            
-            </script>
+            <br><br><br><br><br><br>
+        <h2 id='title'>Tornadoes Over A 5 Year Period</h2>
+            <div id='container'>
+                <svg id='canvas'></svg>
+                <div id='rightSide'>
+                    <div id='tooltip'>
 
-            <!-- PIE CHART CODE BELOW -->
-            <!-- <script>
-
-                //pie chart script
-                let aa = 0;
-                const width = 200,
-                height = 200,
-                margin = 0;
-        
-        
-        
-        
-        
-                let datal = [[9,2,3,8,1],
-                            [1,9,6,3,2],
-                            [8,1,1,6,9],
-                            [9,2,6,3,7],
-                            [1,2,8,1,12],
-                            [5,13,3,7,1],
-                            [9,2,13,1,3],]
-                let data = datal[aa]
-                let total = 0; 
-                for (let i = 0; i < data.length; i++){
-                    total = total + data[i];
-                }
-                console.log("total = " + total);
-                var radius = total/2;
-                // var svg = d3.select("#scroll")
-                //     .append("svg")
-                //         .attr("width", width)
-                //         .attr("height", height)
-                //     .append("g")
-                //         .attr("transform", `translate(${width/2}, ${height/2})`);
-        
-                const color = d3.scaleOrdinal()
-                    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"])
-        
-                var pie = d3.pie()
-                    .value(function(d) {return d[1]})
-                var data_ready = pie(Object.entries(data))
-        
-                // svg
-                //     .selectAll('whatever')
-                //     .data(data_ready)
-                //     .join('path')
-                //     .attr('d', d3.arc()
-                //         .innerRadius(0)
-                //         .outerRadius(radius)
-                //     )
-                //     .attr('fill', function(d){ return(color(d.data[1])) })
-                //     .attr("stroke", "black")
-                //     .style("stroke-width", "2px")
-                //     .style("opacity", 0.7)
-        
-        
-                console.log(data)
-        
-                d3.select("#scroll").append("svg").append("circle").attr("cx", 100).attr("cy", 100).attr("r", total*1.7).style("fill", "blue");
-                //}
-                    window.onscroll = function change(){
-                    if (aa != Math.floor(window.scrollY/279)){
-                        aa = Math.floor(window.scrollY/279)
-                        console.log("We drawing today boiiis")
-                        console.log("aa = " + aa)
-        
-                    }
-                    else {
-                        console.log(2)
-                        return
-                    }
-        
-                    total = 0;
-                    for (let i = 0; i < data.length; i++){
-                        total = total + datal[aa][i];
-                    }
-                    console.log("total = " + total);
-        
-        
-                    d3.select("circle")
-                        .attr("r", total*1.7)
-                    // d3.selectAll("whatever")
-                    //     .attr('d', d3.arc()
-                    //         .innerRadius(0)
-                    //         .outerRadius(total/2))
-        
-        
-        
-                }
-                // function getTransition() {
-                //     return transition()
-                //         .duration(1000)
-                //         .ease(easeLinear)
-                // }
-            </script> -->
+                    </div>
+                    <svg id='legend'>
+                        <g>
+                            <rect class="legend-item" x="10" y="0" width="40" height="40" fill="orange"></rect>
+                            <text x="60" y="20" fill="white">West</text>
+                        </g>
+                        <g>
+                            <rect class="legend-item" x="10" y="40" width="40" height="40" fill="blue"></rect>
+                            <text x="60" y="60" fill="white">Mid-West</text>
+                        </g>
+                        <g>
+                            <rect class="legend-item" x="10" y="80" width="40" height="40" fill="green"></rect>
+                            <text x="60" y="100" fill="white">South</text>
+                        </g>
+                        <g>
+                            <rect class="legend-item" x="10" y="120" width="40" height="40" fill="red"></rect>
+                            <text x="60" y="140" fill="white">North-East</text>
+                        </g> 
+                    </svg>
+                </div>
+            </div>
+        </div>
     </body>
+    <script src="js/script.js"></script>
 </html>
