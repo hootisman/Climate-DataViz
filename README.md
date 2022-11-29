@@ -13,15 +13,12 @@
      <p>Proposal and Changes: Originally we had wanted to create a grouped pie chart that dynamically resized each pie according to some value, as well as change the contents of each pie. This turned out to be quite harder than initially thought, and was changed near the end of the project as it could not be implemented. Instead we replaced it with a treemap that resizes rectangles based on a value. The treemap shows the same general trend that we wanted to get across with the grouped pie chart, but does lose some of the visual flair that the grouped pie chart has. All other data visualizations went swimmingly, especially our innovative visualization which shows the path of a hurricane, as well as its category as it forms and makes landfall.</p>
       <p>What to do differently: It would have been better to work on the same index.html from the start, as well as clarify what global variable each of us were going to use. It turned into a mess near the end of the project as we scrambled to make our visualizations cooperate with each other on the same page. For instance, each of us used similar svg names, so when we used the same index.html file, a lot of things started to fall apart. We should have also implemented the scrolly telling element first, instead of last as there were issues in formatting that we didn’t sort out until the deadline of the project. </p>
     <p>Data Descriptions: The data that our group collected is as follows, 
-Links To Our Datasets:  
-Climate Change https://www.kaggle.com/code/sevgisarac/climate-change/data
-Natural Disasters: https://www.kaggle.com/datasets/brsdincer/all-natural-disasters-19002021-eosdis
-WildFire Dataset:
-https://www.kaggle.com/datasets/rtatman/188-million-us-wildfires
-Hurricane Dataset:
-https://ibtracs.unca.edu/index.php?name=v04r00-2021239N17281#all
-Tornado Dataset:
-https://www.spc.noaa.gov/wcm/#jmc => 1950-2021_actual_tornadoes.csv (7.2 mb)</p>
+Links To Our Datasets:  <br>
+Climate Change https://www.kaggle.com/code/sevgisarac/climate-change/data<br>
+Natural Disasters: https://www.kaggle.com/datasets/brsdincer/all-natural-disasters-19002021-eosdis<br>
+WildFire Dataset: https://www.kaggle.com/datasets/rtatman/188-million-us-wildfires<br>
+Hurricane Dataset: https://ibtracs.unca.edu/index.php?name=v04r00-2021239N17281#all<br>
+Tornado Dataset: https://www.spc.noaa.gov/wcm/#jmc => 1950-2021_actual_tornadoes.csv (7.2 mb)</p><br>
      <p>Data Processing: For the wildfire visualization, the data was originally in a sqlite file. The file was opened up using SQLite DB Browser. Using SQL commands, a new table was made and all the relevant information( Year, State, Fire Fize) was placed into that table. The table was then extracted into a CSV file for use in the project.
 Specific columns were taken from the tornado data and converted into a csv file, which was then further refined into an easy to manage csv with five year periods added up for each state, which was finally transformed into a json file, as json is more friendly to hierarchy in d3, which the treemap uses. 
 For the innovative visualization, the data was on Hurricane IDA from the IBTrACS website. The data was pulled from the website and converted into a CSV file manually.
