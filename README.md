@@ -27,7 +27,7 @@ For the innovative visualization, the data was on Hurricane IDA from the IBTrACS
 For each of these datasets, the data was massive, with many redundant columns of data that were unneeded. In this case, the data was reformatted into only the data that we needed for each visualization.  
     Goals and Tasks:  The goal with our project is to first argue that increases in temperature have had a correlation with Natural Disasters. We wanted to show that within the last 50 or so years that our data sets have tracked that the costs in damages through Natural Disasters such as WildFiress, Hurricanes, Floods, and  Earthquakes to name a few have only scaled in severity. Our task was to create animated visulizatoins that users could interact with. Take for example Nick who created a Categorial Visualizatoin to show Natural Wildfires in the US from 0-10000 to 100,000 acres. 
     Team Workload:
-Benjamin worked on the treemap, implemented the basic scrolly telling framework and collaborated with Christopher on the Readme and text for the html scrolly telling. 
+ Benjamin worked on the treemap, implemented the basic scrolly telling framework and collaborated with Christopher on the Readme and text for the html scrolly telling. 
 David worked on the innovative visualization which showed a hurricane’s path across the US, collaborated with Nick on merging all of the individual html files together, along with the js files. 
 Nick worked on the cluster chart, implementing the scrolly telling framework into the final project as well as collaborated with David on merging html and js files. 
 Christopher worked on a line, scatter and stacked bar chart, created the poster and collaborated with Benjamin on creating the text for the html page and Readme document. 
