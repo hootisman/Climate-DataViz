@@ -1404,7 +1404,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         currentHurricaneDataIndex = 0;
 
-        leafletMap = L.map('leaflet-map',{zoomControl: false,minZoom: 5, maxZoom: 5}).setView([33.448, -80.074], 5);
+        leafletMap = L.map('leaflet-map',{zoomControl: false,minZoom: 5, maxZoom: 5}).setView([28.448, -78.074], 5);
         hurricaneMapPlot();
         
 
@@ -1494,7 +1494,7 @@ function hurricaneMapPlot(){
                         .attr('cy', d => leafletMap.project([d["LAT"],d["LON"]])["y"])
                         .transition()
                         .duration(1000)
-                        .delay((d,i) => 100 * i)
+                        .delay((d,i) => 75 * i)
                         .attr('r', d => radiusScale(d["WMO WIND"]));
 
     var linelen = lines.node().getTotalLength();
