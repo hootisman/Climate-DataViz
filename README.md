@@ -1,3 +1,4 @@
+<img width="975" alt="Screen Shot 2022-11-28 at 11 13 25 PM" src="https://user-images.githubusercontent.com/72762131/204453911-baddda3b-b0e9-489b-90cd-7f366243661a.png">
 Benjamin Robbins
 David Zalewski
 Nicholas Jones 
