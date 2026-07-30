@@ -1,184 +1,132 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+.myContainer1, .myContainer2, #usTemperatureChangeOuter, 
+#usNaturalDisasterDeathsOuter, #usNaturalDisasterDamagesOuter, 
+#intro_area, #intro_area2, #intro_area3, 
+#container, .hurricaneOuter, #exit_area{
+    position: fixed;
+    /* margin:auto; */
+    width:1300px;
+    height: 800px;
+    margin-left: 400px;
+    float: left;
 }
-
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
+.myContainer1, .myContainer2, #usTemperatureChangeOuter, 
+#usNaturalDisasterDeathsOuter, #usNaturalDisasterDamagesOuter, 
+#container, .hurricaneOuter {
     z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+    opacity: 0;
+    margin-top: 100px;
 }
-
-#center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+.hurricaneOuter {
+  width:1280px;
+  height: 720px;
 }
-
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
+svg#canvas, svg#legend{
+    background-color: #1D1F20;
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    padding: 10px;
+    border-radius: 5px;
 }
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
+#container{
+      display: flex;
+      flex-direction: row;
       justify-content: center;
-      box-sizing: border-box;
-    }
-  }
+      align-items: center;
+}
+#legend{
+    color: rgb(11, 12, 17);
+    font-size: 18px;
+    text-align: center;
+    min-height: 160px;
+    max-width: 160px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+#tooltip{
+    visibility: hidden;
+    min-height: 160px;
+    width: 200px;
+    margin-top: 2px;
+    color: #1D1F20;
+    font-size: 24px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+#rightSide{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 50px;
+    width: 200px;
+}
+.tile:hover{
+    fill: Gainsboro
+}
+#usNaturalDisasterDeathsOuter {
+  width: 1100px;
+  height: 700px;
+}
+#usTemperatureChangeOuter {
+    height: 500px;
+}
+#usNaturalDisasterDamagesOuter {
+    height: 890px;
+    width: 1100px;
+}
+#intro_area2, #intro_area3, #exit_area {
+  margin-left: 500px;
+  margin-top: 300px;
+  width: 900px;
+  font-size: 25px;
+  opacity: 0;
+}
+#intro_area {
+  margin-left: 300px;
+  margin-top: 200px;
+  font-size: 75px;
+}
+.intro_area_names {
+  font-size: 25px;
+}
+.myContainer1 {
+    z-index: 1;
+}
+.text_area1, .text_area2, .text_area3, .text_area4, 
+.text_area5, .text_area6, .text_area7, .text_area8{
+    position: fixed;
+    width: 300px;
+    float: left;
+    margin-left: 50px;
+    margin-top: 100px;
+    margin-right: 50px;
+    opacity: 0;
+}
+#hurri-path-svg {
+    opacity: 0;
+    z-index: 1;
+}
+#line_div {
+    border-right: 1px solid;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+    width:1300px;
+    height: 740px;  
+    padding:10px;
+}
+#line_svg {
+    width: 1280px;
+    height: 720px;
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+}
+main.container-fluid {
+    width: 1140px;
+}
+.y-axis .domain {
+    display: none;
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
-  position: relative;
-  width: 100%;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
-
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+.x-axis-title, .y-axis-title {
+    font-weight: 700;
 }
