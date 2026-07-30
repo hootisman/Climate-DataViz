@@ -7,9 +7,12 @@ import * as d3 from 'd3'
 import ClimateInfo from './components/Header.jsx'
 import TempLineViz from './components/TempLineViz.jsx'
 import NaturalDisasterDamagesViz from './components/NatureDisastersViz.jsx'
+import WildfireViz from './components/WildfireViz.jsx'
 
 function App() {
   const [scrollPosition, setScrollPosition] = useState(0)
+
+  const wildfireStartScrollPos = 35;    //the scroll position that the wildfire viz should start appearing
 
   const chartsList = [
       {min:0, max:5, component: "#intro_area"},
@@ -49,10 +52,14 @@ function App() {
       
       toggleChartAndText(newposition)
     }
+
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+    }
+    window.scrollTo(0, 0) 
     toggleChartAndText(0) // Initialize the first chart and text on page load
 
     window.addEventListener('scroll', handleScroll)
-
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
@@ -80,6 +87,7 @@ function App() {
       <ClimateInfo />
       <TempLineViz />
       <NaturalDisasterDamagesViz />
+      <WildfireViz year={Math.min(2015, Math.max(1992, 1992 + scrollPosition - wildfireStartScrollPos))} />
     </div>
   )
 }
