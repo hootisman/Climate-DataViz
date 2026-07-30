@@ -5,7 +5,7 @@ import heroImg from './assets/hero.png'
 import './App.css'
 import * as d3 from 'd3'
 import ClimateInfo from './components/Header.jsx'
-import DataViz from './components/Visualizations.jsx'
+import { TempLineViz } from './components/Visualizations.jsx'
 
 function App() {
   const [scrollPosition, setScrollPosition] = useState(0)
@@ -77,6 +77,7 @@ function App() {
   return (
     <div style={{height: '20000px'}} aria-hidden="true"> {/* Set a large height to enable scrolling */}
       <ClimateInfo />
+      <TempLineViz />
     </div>
   )
 }
