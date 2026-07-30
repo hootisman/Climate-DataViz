@@ -3,18 +3,52 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
+import * as d3 from 'd3'
 import ClimateInfo from './components/Header.jsx'
 import DataViz from './components/Visualizations.jsx'
 
 function App() {
   const [scrollPosition, setScrollPosition] = useState(0)
 
+  const chartsList = [
+      {min:0, max:5, component: "#intro_area"},
+      {min:5, max:10, component: "#intro_area2"},
+      {min:10, max:15, component: "#intro_area3"},
+      {min:15, max:20, component: "#usTemperatureChangeOuter"},
+      {min:20, max:30, component: "#usNaturalDisasterDamagesOuter"},
+      {min:30, max:35, component: "#usNaturalDisasterDeathsOuter"},
+      {min:35, max:65, component: ".myContainer1"},
+      {min:65, max:85, component: "#container"},
+      {min:85, max:97, component: ".hurricaneOuter"},
+      {min:97, max:100, component: "#exit_area"},
+      {min:1000, max:1003, component: ".empty_div"},
+  ];
+
+  const infoList = [
+      {min:0, max:15, component: ".empty_div"},
+      {min:15, max:20, component: ".text_area3"},
+      {min:20, max:25, component: ".text_area4"},
+      {min:25, max:30, component: ".text_area5"},
+      {min:30, max:35, component: ".text_area6"},
+      {min:35, max:59, component: ".text_area1"},
+      {min:59, max:65, component: ".text_area2"},
+      {min:65, max:85, component: ".text_area7"},
+      {min:85, max:97, component: ".text_area8"},
+      {min:97, max:100, component: ".empty_div"},
+  ];
+
+  const isInRange = (value, min, max) => {
+    return value >= min && value < max;
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       const newposition = Math.floor(window.scrollY/200)
       setScrollPosition(newposition)
-      console.log(newposition)
+      
+      toggleChartAndText(newposition)
     }
+    toggleChartAndText(0) // Initialize the first chart and text on page load
 
     window.addEventListener('scroll', handleScroll)
 
@@ -23,26 +57,27 @@ function App() {
     }
   }, [])
 
+  function toggleChartAndText(position) {
+      let component = chartsList.filter(chart => position >= chart.min && position < chart.max)[0]?.component
+      let text = infoList.filter(info => position >= info.min && position < info.max)[0]?.component
 
+      //hide previous chart + text
+      d3.selectAll(".shown").transition().duration(50).style("opacity", 0)
+      d3.selectAll(".shown").style("z-index", 0)
+      d3.selectAll(".shown").classed("shown", false)
+
+      //show new chart + text
+      d3.select(text).transition().duration(50).style("opacity", 1)
+      d3.select(text).classed("shown", true);
+      d3.select(component).transition().duration(50).style("opacity", 1)
+      d3.select(component).style("z-index", 1)
+      d3.select(component).classed("shown", true);
+  }
 
   return (
-    <>
+    <div style={{height: '20000px'}} aria-hidden="true"> {/* Set a large height to enable scrolling */}
       <ClimateInfo />
-      <TextTest />
-      <TextTest />
-      <TextTest />
-      <TextTest />
-      <TextTest />
-      <TextTest />
-      <TextTest />
-      <TextTest />
-      <TextTest />
-      <TextTest />
-      <TextTest />
-      <TextTest />
-      <TextTest />
-      <TextTest />
-    </>
+    </div>
   )
 }
 
@@ -76,5 +111,6 @@ function TextTest() {
     </>
   )
 }
+
 
 export default App

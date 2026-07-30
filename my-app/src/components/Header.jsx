@@ -2,21 +2,6 @@ import {useState, useEffect} from 'react';
 
 export default function ClimateInfo(){
 
-    const divList = [
-        ".myContainer1",
-        ".myContainer2",
-        "#container",
-        "#intro_area",
-        "#exit_area",
-        "#intro_area2",
-        "#intro_area3",
-        ".hurricaneOuter",
-        ".empty_div",
-        "#usTemperatureChangeOuter",
-        "#usNaturalDisasterDeathsOuter",
-        "#usNaturalDisasterDamagesOuter",
-    ];
-
     return (
         <>
         <div className="empty_div"></div>
