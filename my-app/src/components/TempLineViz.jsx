@@ -1,72 +1,8 @@
 import * as d3 from 'd3';
-import L from 'leaflet'
-import 'leaflet/dist/leaflet.css'   // leaflet needs its CSS too, easy to forget
 import {useState, useEffect} from 'react'
 
-export default function WildfireViz() {
-    let nodes_draw, nodes_labels;
-    let data;
-    let simulation = d3.forceSimulation()
-        //.alphaMin(0.9)
-        //.alphaTarget(0.899999)  
-        .velocityDecay(0.4)
-        .force("x", d3.forceX().x(function(d) {
-            return centres[getFireStatus(d.State)].x;
-        }))
-        .force("y", d3.forceY().y(function(d) {
-            return centres[getFireStatus(d.State)].y;
-        }))
-        //.force("y", d3.forceY().strength(0.002))
-        .force('collision', d3.forceCollide().radius(d => d.radius+1).iterations(2))
-        .on('tick', () => {
-            nodes_draw
-                .attr('cx', d => d.x)
-                .attr('cy', d => d.y)
 
-            nodes_labels
-                .attr('x', d => d.x)
-                .attr('y', d => d.y)
-        });
-
-    useEffect(() => {
-        d3.csv('./assets/FireData.csv').then(data => {
-          var data_initial = values[0];
-
-          data = data_initial.map(element => ({
-              Year: +element.Year,
-              Size: +element.Size,
-              State: element.State
-          }));
-        });
-
-        const colorScale = d3.scaleOrdinal()
-        .domain([0, 1, 2])
-        .range(["#edc949", "#59a14f", "#e15759"])
-
-        nodes_draw = svg.selectAll("circle")
-        .data(nodes, d => d.State)
-        .join("circle")
-            .attr('r', d => d.radius)
-            .attr('fill', d => colorScale(getFireStatus(d.State)))
-            .attr('opacity', 1)
-            .attr('class', '_wildfire_node')
-                        
-        nodes_labels = svg.selectAll("ntext")
-        .data(nodes)
-        .join("text")
-            .text(d => d.State)
-            .style('text-anchor', 'middle')
-            .style('font-size', 20)
-            .attr('dy', '.3em')
-
-    }, []);
-
-    return (
-        <></>
-    );
-}
-
-export function TempLineViz(){
+export default function TempLineViz(){
     const width = 1082;
     const height = 400;
     const margin = {
@@ -79,8 +15,9 @@ export function TempLineViz(){
     const innerHeight = height - margin.top - margin.bottom;
     const lineWidth = 2;
     const lineColor = d3.schemeSet2[0];
+    let svg, data;
 
-    function drawUSTemperatureChangeLineGraph(data) {
+    function drawUSTemperatureChangeLineGraph() {
         const xScale = d3
             .scaleLinear()
             .domain(d3.extent(data, (d) => d.year))
@@ -96,7 +33,7 @@ export function TempLineViz(){
             .x((d) => xScale(d.year))
             .y((d) => yScale(d.tempChange));
 
-        const svg = d3.select("#usTemperatureChange")
+        svg = d3.select("#usTemperatureChange")
             .append("svg")
             .attr("width", width)
             .attr("height", height);
@@ -151,25 +88,34 @@ export function TempLineViz(){
     useEffect(() => {
         Promise.all([
             d3.csv('/data/Temperature_change_Data.csv')
-        ]).then(([data]) => {
-            data = data
-                .filter((d) => d["Country Code"] === "USA") // Only keep US data
+        ]).then(([importedData]) => {
+            data = importedData
+                .filter((d) => d["Country Code"] === "USA") // Only keep US importedData
                 .map((d) => ({
                 year: +d["year"],
                 tempChange: +d["tem_change"],
                 }));
             console.log("temp change data (chart 1)", data);
             
-            drawUSTemperatureChangeLineGraph(data);
+            drawUSTemperatureChangeLineGraph();
         });
     }, []);
 
     return (
-    <div className="myContainer1">
-        <div id="line_div" className="border-dark bg-light shadow-sm">
-            <span id="character-name"></span>
-            <svg id="line_svg"></svg>
-        </div>
+    <div className="card shadow mb-4" id="usTemperatureChangeOuter">
+            <div className="card-body">
+              <h5 className="card-title">US Temperature Change</h5>
+              <div className="mb-2">
+                <div id="usTemperatureChange"></div>
+              </div>
+              <p className="text-muted mb-0"></p>
+                Data source:
+                <a
+                  href="https://www.kaggle.com/code/sevgisarac/climate-change/data"
+                  target="_blank"
+                  className="text-muted"
+                  >Climate Change</a>
+            </div>
     </div>
     );
 }
