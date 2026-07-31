@@ -9,6 +9,7 @@ import TempLineViz from './components/TempLineViz.jsx'
 import NaturalDisasterDamagesViz from './components/NatureDisastersViz.jsx'
 import WildfireViz from './components/WildfireViz.jsx'
 import TornadoTreeViz from './components/TornadoTreeViz.jsx'
+import HurricaneViz from './components/HurricaneViz.jsx'
 
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
@@ -93,6 +94,7 @@ function App() {
       <NaturalDisasterDamagesViz />
       <WildfireViz year = {clamp(1992 + scrollPosition - wildfireStartScrollPos - 4, 1992, 2015)} />
       <TornadoTreeViz year={clamp(Math.floor(remap(scrollPosition, tornadoStartScrollPos, 83, 0, 12)), 0, 12)} />
+      <HurricaneViz currentHurricane={clamp(Math.floor(remap(scrollPosition, 85, 97, 0, 6)), 0, 6)}/>
     </div>
   )
 }
