@@ -8,12 +8,19 @@ import ClimateInfo from './components/Header.jsx'
 import TempLineViz from './components/TempLineViz.jsx'
 import NaturalDisasterDamagesViz from './components/NatureDisastersViz.jsx'
 import WildfireViz from './components/WildfireViz.jsx'
+import TornadoTreeViz from './components/TornadoTreeViz.jsx'
+
+
+const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+const remap = (num, min1, max1, min2, max2) => min2 + ((num - min1) * (max2 - min2)) / (max1 - min1)
+const isInRange = (value, min, max) => value >= min && value < max;
 
 function App() {
   const [scrollPosition, setScrollPosition] = useState(0)
 
   const wildfireStartScrollPos = 35;    //the scroll position that the wildfire viz should start appearing
-
+  const tornadoStartScrollPos = 65;     //the scroll position that the tornado viz should start appearing
+  //todo: get start pos by directly going through arrays
   const chartsList = [
       {min:0, max:5, component: "#intro_area"},
       {min:5, max:10, component: "#intro_area2"},
@@ -41,9 +48,6 @@ function App() {
       {min:97, max:100, component: ".empty_div"},
   ];
 
-  const isInRange = (value, min, max) => {
-    return value >= min && value < max;
-  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -87,7 +91,8 @@ function App() {
       <ClimateInfo />
       <TempLineViz />
       <NaturalDisasterDamagesViz />
-      <WildfireViz year={Math.min(2015, Math.max(1992, 1992 + scrollPosition - wildfireStartScrollPos))} />
+      <WildfireViz year = {clamp(1992 + scrollPosition - wildfireStartScrollPos - 4, 1992, 2015)} />
+      <TornadoTreeViz year={clamp(Math.floor(remap(scrollPosition, tornadoStartScrollPos, 83, 0, 12)), 0, 12)} />
     </div>
   )
 }
