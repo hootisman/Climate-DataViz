@@ -17,7 +17,7 @@ export default function TornadoTreeViz({year}){
     useEffect(() => {
         d3.select(canvasRef.current).attr('width',1000).attr('height', 600)
         Promise.all([
-            d3.json('/data/torn3.json')
+            d3.json(`${import.meta.env.BASE_URL}data/torn3.json`)
         ]).then(([importedData, error]) => {
             console.log("Inside useEffect, importedData:");
             if (error) {

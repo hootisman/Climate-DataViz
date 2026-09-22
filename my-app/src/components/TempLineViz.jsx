@@ -87,7 +87,7 @@ export default function TempLineViz(){
 
     useEffect(() => {
         Promise.all([
-            d3.csv('/data/Temperature_change_Data.csv')
+            d3.csv(`${import.meta.env.BASE_URL}data/Temperature_change_Data.csv`)
         ]).then(([importedData]) => {
             data = importedData
                 .filter((d) => d["Country Code"] === "USA") // Only keep US importedData

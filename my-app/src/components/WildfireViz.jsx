@@ -26,7 +26,7 @@ export default function WildfireViz({year}) {
 
     useEffect(() => {
         Promise.all([
-            d3.csv('/data/FireData.csv'),
+            d3.csv(`${import.meta.env.BASE_URL}data/FireData.csv`),
         ]).then(([importedData]) => {
 
             const data = importedData.map(element => ({

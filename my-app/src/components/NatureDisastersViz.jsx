@@ -7,7 +7,7 @@ export default function NaturalDisasterDamagesViz() {
 
     useEffect(() => {
         Promise.all([
-            d3.csv("/data/1970-2021_DISASTERS.csv"),
+            d3.csv(`${import.meta.env.BASE_URL}data/1970-2021_DISASTERS.csv`),
         ]).then(([importedData]) => {
             data = importedData.filter((d) => d["ISO"] === "USA") // Only keep US data
                     .map((d) => ({

@@ -10,12 +10,12 @@ export default function HurricaneViz({currentHurricane}){
     const svgRef = useRef();
 
     const datasets = [
-        d3.csv("/data/hurricanealma1970.csv"),
-        d3.csv("/data/hurricanedanny1985.csv"),
-        d3.csv("/data/hurricaneearl1998.csv"),
-        d3.csv("/data/hurricanejeanne2004.csv"),
-        d3.csv("/data/hurricanesally2020.csv"),
-        d3.csv("/data/hurricaneida2021.csv")
+        d3.csv(`${import.meta.env.BASE_URL}data/hurricanealma1970.csv`),
+        d3.csv(`${import.meta.env.BASE_URL}data/hurricanedanny1985.csv`),
+        d3.csv(`${import.meta.env.BASE_URL}data/hurricaneearl1998.csv`),
+        d3.csv(`${import.meta.env.BASE_URL}data/hurricanejeanne2004.csv`),
+        d3.csv(`${import.meta.env.BASE_URL}data/hurricanesally2020.csv`),
+        d3.csv(`${import.meta.env.BASE_URL}data/hurricaneida2021.csv`)
     ];
 
     useEffect ( () => {
